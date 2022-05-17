@@ -20,5 +20,6 @@ jobs:
           git fetch --unshallow
           git checkout testQA
           git pull
+          echo "Auto-merge ${{ github.event.pull_request.base.ref }} back to testQA"
           git merge --no-ff ${{ github.event.pull_request.base.ref }} -m "Auto-merge ${{ github.event.pull_request.base.ref }} back to testQA"
           git push
