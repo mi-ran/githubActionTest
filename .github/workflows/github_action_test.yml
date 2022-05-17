@@ -1,7 +1,8 @@
 name: PRs to master
 on: 
-  pull_request:
-    branches: [main]
+  pull_request_target:
+    branches:
+      - 'deploy/**'
     types: [closed]
 jobs:
   merge-master-back-to-dev:
@@ -19,5 +20,5 @@ jobs:
           git fetch --unshallow
           git checkout testQA
           git pull
-          git merge --no-ff main -m "Auto-merge master back to testQA"
+          git merge --no-ff ${{ github.event.pull_request.base.ref }} -m "Auto-merge ${{ github.event.pull_request.base.ref }} back to testQA"
           git push
