@@ -1,19 +1,23 @@
-name: Sync multiple branches
-on:
+name: PRs to master
+on: 
   pull_request:
-    branches:
-      - '*'
+    branches: [main]
     types: [closed]
 jobs:
-  sync-branch:
+  merge-master-back-to-dev:
+    if: github.event.pull_request.merged == true
+    timeout-minutes: 2
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-
-      - name: Merge development -> staging
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: development
-          target_branch: staging
-          github_token: ${{ github.token }}
+    - uses: actions/checkout@v2
+    - name: Set Git config
+      run: |
+          git config --local user.email "mi-ran@github.com"
+          git config --local user.name "Github Actions"
+    - name: Merge master back to dev
+      run: |
+          git fetch --unshallow
+          git checkout testQA
+          git pull
+          git merge --no-ff main -m "Auto-merge master back to testQA"
+          git push
