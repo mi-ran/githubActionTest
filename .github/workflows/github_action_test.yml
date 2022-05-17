@@ -2,7 +2,7 @@ name: Sync multiple branches
 on:
   pull_request:
     branches:
-      - '*'
+      - 'deploy/*'
     types: [closed]
 jobs:
   sync-branch:
@@ -14,6 +14,6 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: development
-          target_branch: staging
-          github_token: ${{ github.token }}
+          from_branch: main
+          target_branch: testQA
+          github_token: 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
