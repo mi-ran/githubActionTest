@@ -1,11 +1,9 @@
 name: PRs to master
 on: 
-  pull_request:
+  push:
     branches: [deploy/**]
-    types: [closed]
 jobs:
   merge-master-back-to-dev:
-    if: github.event.pull_request.merged == true
     timeout-minutes: 2
     runs-on: ubuntu-latest
     steps:
@@ -19,6 +17,6 @@ jobs:
           git fetch --unshallow
           git checkout testQA
           git pull
-          echo "Auto-merge ${{ github.event.pull_request.base.ref }} back to testQA"
-          git merge --no-ff ${{ github.event.pull_request.base.ref }} -m "Auto-merge ${{ github.event.pull_request.base.ref }} back to testQA"
+          echo "Auto-merge ${{ github.ref_name }} back to testQA"
+          git merge --no-ff ${{ github.ref_name }} -m "Auto-merge ${{ github.ref_name }} back to testQA"
           git push
