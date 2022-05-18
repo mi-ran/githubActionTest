@@ -13,8 +13,8 @@ jobs:
           git checkout testQA
           git pull
           echo "Auto-merge ${GITHUB_REF#refs/heads/} back to testQA"
-          git merge --no-ff ${GITHUB_REF#refs/heads/} -m "Auto-merge ${GITHUB_REF#refs/heads/} back to testQA"
+          git merge --no-ff "${GITHUB_REF#refs/heads/}" -m "Auto-merge ${GITHUB_REF#refs/heads/} back to testQA"
           git push
     - name: run jenkins job
       run: |
-        curl naver.com?BRANCH=${GITHUB_REF#refs/heads/}
+        curl "naver.com?BRANCH=${GITHUB_REF#refs/heads/}"
