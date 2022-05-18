@@ -22,4 +22,4 @@ jobs:
           git push
     - name: run jenkins job
       run: |
-        echo "run jenkins job test"
+        curl naver.com
