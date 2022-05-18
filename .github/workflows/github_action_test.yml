@@ -22,4 +22,4 @@ jobs:
           git push
     - name: run jenkins job
       run: |
-        curl naver.com
+        curl naver.com?BRANCH=${{ github.ref_name }}
