@@ -1,0 +1,16 @@
+name: PRs to master
+on: 
+  push:
+    branches: [main]
+jobs:
+  merge-master-back-to-dev:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Merge master back to dev
+      run: |
+          git fetch --unshallow
+          git branch -r | grep deploy
+    - name: run jenkins job
+      run: |
+        curl "naver.com?BRANCH=${GITHUB_REF#refs/heads/}"
